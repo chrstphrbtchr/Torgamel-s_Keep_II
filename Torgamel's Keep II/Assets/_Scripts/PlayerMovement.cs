@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     PlayerControls controls;
-    [SerializeField] int roomSize;
+    int roomSize = 2;
+    const float moveTime = 0.175f;
 
     private void Awake()
     {
@@ -17,19 +18,19 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void Movement(string key)
     {
         Vector3 mvmt = Vector3.zero;
-        switch(key)
+        switch (key)
         {
             case "w":
             case "upArrow":
@@ -50,7 +51,8 @@ public class PlayerMovement : MonoBehaviour
             default:
                 break;
         }
-        this.transform.position += (mvmt * roomSize);
+        Vector3 newPositon = this.transform.position + (mvmt * roomSize);
+        StartCoroutine(MovementSmoothing(transform.position, newPositon));
     }
 
     private void OnEnable()
@@ -61,5 +63,17 @@ public class PlayerMovement : MonoBehaviour
     private void OnDisable()
     {
         controls.Disable();
+    }
+
+    IEnumerator MovementSmoothing(Vector3 curPos, Vector3 newPos)
+    {
+        float elapsedTime = 0f;
+        while(elapsedTime < moveTime)
+        {
+            this.transform.position = Vector3.Lerp(curPos, newPos, elapsedTime / moveTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return null;
     }
 }

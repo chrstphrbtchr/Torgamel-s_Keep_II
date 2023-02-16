@@ -1,5 +1,5 @@
 {
-    "name": "Player Controls",
+    "name": "PlayerControls",
     "maps": [
         {
             "name": "Player",
@@ -18,6 +18,15 @@
                     "name": "Sword Mechanics",
                     "type": "Button",
                     "id": "2a39a11b-5c20-47ce-8077-44bb87b26d92",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Player Rotation",
+                    "type": "Button",
+                    "id": "8318d79a-74e9-4058-9dcd-43825185772d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -116,11 +125,33 @@
                 {
                     "name": "",
                     "id": "1b391ae2-4973-4dc4-abfd-0dccda4c302e",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/space",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "Sword Mechanics",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2058c43e-95af-4efb-9a42-89bcf1dc1ce7",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Player Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "576e1a80-d1bc-44e5-8a33-dd4ab815df42",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Player Rotation",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

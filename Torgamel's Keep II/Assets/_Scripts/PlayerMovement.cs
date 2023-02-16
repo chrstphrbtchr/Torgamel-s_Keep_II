@@ -7,12 +7,15 @@ public class PlayerMovement : MonoBehaviour
 {
     PlayerControls controls;
     int roomSize = 2;
+    private bool moving;
     const float moveTime = 0.175f;
 
     private void Awake()
     {
         controls = new PlayerControls();
         controls.Player.PlayerMovement.performed += ctx => Movement(ctx.control.name);
+        controls.Player.PlayerRotation.performed += ctx => TurnPlayer(
+            (ctx.control.name == "leftShift") ? true : false);
     }
 
     // Start is called before the first frame update
@@ -29,30 +32,49 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement(string key)
     {
-        Vector3 mvmt = Vector3.zero;
-        switch (key)
+        if (!moving)
         {
-            case "w":
-            case "upArrow":
-                mvmt = Vector3.forward;
-                break;
-            case "s":
-            case "downArrow":
-                mvmt = Vector3.back;
-                break;
-            case "a":
-            case "leftArrow":
-                mvmt = Vector3.left;
-                break;
-            case "d":
-            case "rightArrow":
-                mvmt = Vector3.right;
-                break;
-            default:
-                break;
+            moving = true;
+            Vector3 mvmt = Vector3.zero;
+            switch (key)
+            {
+                case "w":
+                case "upArrow":
+                    mvmt = Vector3.forward;
+                    break;
+                case "s":
+                case "downArrow":
+                    mvmt = Vector3.back;
+                    break;
+                case "a":
+                case "leftArrow":
+                    mvmt = Vector3.left;
+                    break;
+                case "d":
+                case "rightArrow":
+                    mvmt = Vector3.right;
+                    break;
+                default:
+                    break;
+            }
+            Vector3 newPositon = this.transform.position + (mvmt * roomSize);
+            StartCoroutine(MovementSmoothing(transform.position, newPositon));
         }
-        Vector3 newPositon = this.transform.position + (mvmt * roomSize);
-        StartCoroutine(MovementSmoothing(transform.position, newPositon));
+    }
+
+    void TurnPlayer(bool left)
+    {
+        if (!moving)
+        {
+            if (left)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
     }
 
     private void OnEnable()
@@ -74,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        moving = false;
         yield return null;
     }
 }

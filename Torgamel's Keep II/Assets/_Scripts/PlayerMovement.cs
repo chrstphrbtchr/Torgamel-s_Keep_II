@@ -90,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        transform.position = newPos;
         moving = false;
         yield return null;
     }

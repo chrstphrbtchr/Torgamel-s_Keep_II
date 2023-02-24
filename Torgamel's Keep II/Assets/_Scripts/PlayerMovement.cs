@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     {
         controls = new PlayerControls();
         controls.Player.PlayerMovement.performed += ctx => Movement(ctx.control.name);
-        controls.Player.PlayerRotation.performed += ctx => TurnPlayer(
-            (ctx.control.name == "leftShift") ? true : false);
+        controls.Player.PlayerRotation.performed += ctx => Turning(
+            (ctx.control.name == "q") ? true : false);
     }
 
     // Start is called before the first frame update
@@ -40,19 +40,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 case "w":
                 case "upArrow":
-                    mvmt = Vector3.forward;
+                    mvmt = transform.forward;
                     break;
                 case "s":
                 case "downArrow":
-                    mvmt = Vector3.back;
+                    mvmt = transform.forward * -1;
                     break;
                 case "a":
                 case "leftArrow":
-                    mvmt = Vector3.left;
+                    mvmt = transform.right * -1;
                     break;
                 case "d":
                 case "rightArrow":
-                    mvmt = Vector3.right;
+                    mvmt = transform.right;
                     break;
                 default:
                     break;
@@ -62,18 +62,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void TurnPlayer(bool left)
+    void Turning(bool left)
     {
         if (!moving)
         {
-            if (left)
-            {
-
-            }
-            else
-            {
-
-            }
+            moving = true;
+            StartCoroutine(TurnSmoothing(left));
         }
     }
 
@@ -96,6 +90,22 @@ public class PlayerMovement : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+        moving = false;
+        yield return null;
+    }
+
+    IEnumerator TurnSmoothing(bool left)
+    {
+        float elapsedTime = 0f;
+        Quaternion startRot = transform.rotation;
+        Quaternion endRot = startRot * Quaternion.Euler(0, (left ? -1 : 1) * 90, 0);
+        while (elapsedTime < moveTime)
+        {
+            this.transform.rotation = Quaternion.Slerp(startRot, endRot, elapsedTime / moveTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        transform.rotation = endRot;
         moving = false;
         yield return null;
     }

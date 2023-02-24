@@ -86,11 +86,10 @@ public class PlayerMovement : MonoBehaviour
         float elapsedTime = 0f;
         while(elapsedTime < moveTime)
         {
-            this.transform.position = Vector3.Lerp(curPos, newPos, elapsedTime / moveTime);
             elapsedTime += Time.deltaTime;
+            this.transform.position = Vector3.Lerp(curPos, newPos, elapsedTime / moveTime);
             yield return null;
         }
-        transform.position = newPos;
         moving = false;
         yield return null;
     }
@@ -98,15 +97,14 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator TurnSmoothing(bool left)
     {
         float elapsedTime = 0f;
-        Quaternion startRot = transform.rotation;
-        Quaternion endRot = startRot * Quaternion.Euler(0, (left ? -1 : 1) * 90, 0);
+        Quaternion curRot = transform.rotation;
+        Quaternion newRot = curRot * Quaternion.Euler(0, (left ? -1 : 1) * 90, 0);
         while (elapsedTime < moveTime)
         {
-            this.transform.rotation = Quaternion.Slerp(startRot, endRot, elapsedTime / moveTime);
             elapsedTime += Time.deltaTime;
+            this.transform.rotation = Quaternion.Slerp(curRot, newRot, elapsedTime / moveTime);
             yield return null;
         }
-        transform.rotation = endRot;
         moving = false;
         yield return null;
     }

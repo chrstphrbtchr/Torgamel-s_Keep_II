@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     PlayerControls controls;
     int roomSize = 2;
     private bool moving;
-    const float moveTime = 0.175f;
+    public const float moveTime = 0.175f;
 
     private void Awake()
     {

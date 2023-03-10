@@ -44,11 +44,11 @@ public class PlayerMovement : MonoBehaviour
                     break;
                 case "s":
                 case "downArrow":
-                    mvmt = transform.forward * -1;
+                    mvmt = -transform.forward;
                     break;
                 case "a":
                 case "leftArrow":
-                    mvmt = transform.right * -1;
+                    mvmt = -transform.right;
                     break;
                 case "d":
                 case "rightArrow":

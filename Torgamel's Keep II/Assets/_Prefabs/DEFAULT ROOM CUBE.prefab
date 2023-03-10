@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 3179783088990789022}
   - component: {fileID: 6778706691536106515}
   - component: {fileID: 848486377804753622}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DEFAULT ROOM CUBE
   m_TagString: Untagged
   m_Icon: {fileID: 0}

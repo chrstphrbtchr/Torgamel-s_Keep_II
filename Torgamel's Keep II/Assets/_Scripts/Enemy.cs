@@ -30,9 +30,9 @@ public class Enemy : MonoBehaviour
             new Ray(transform.position, -transform.forward),
             new Ray(transform.position, -transform.right),
             new Ray(transform.position, transform.right) };
-        List<Vector3> directions = new List<Vector3>();
+        List<Vector3> directions = new List<Vector3>() { Vector3.zero };
 
-        for(int i = 0; i < rayArray.Length; i++)
+        for(int i = 0; i < 4; i++)
         {
             RaycastHit hit;
             Physics.Raycast(rayArray[i], out hit, 2f, 3, QueryTriggerInteraction.Ignore);
